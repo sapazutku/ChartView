@@ -154,7 +154,7 @@ struct ChartView_Previews : PreviewProvider {
         BarChartView(data: TestData.values ,
                      title: "Model 3 sales",
                      legend: "Quarterly",
-                     valueSpecifier: "%.0f")
+                     form: ChartForm.extraLarge, valueSpecifier: "%.0f")
     }
 }
 #endif

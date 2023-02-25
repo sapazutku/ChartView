@@ -8,16 +8,23 @@
 
 import SwiftUI
 
+
 public struct PieChartView : View {
-    public var data: [Double]
+    public var data: [PieChartData]
     public var title: String
     public var legend: String?
     public var style: ChartStyle
     public var formSize:CGSize
     public var dropShadow: Bool
     public var valueSpecifier:String
+    public var cornerImage: Image
     
     @State private var showValue = false
+    @State private var currentValueName: String = "" {
+        didSet{
+            print(currentValueName)
+        }
+    }
     @State private var currentValue: Double = 0 {
         didSet{
             if(oldValue != self.currentValue && self.showValue) {
@@ -26,7 +33,7 @@ public struct PieChartView : View {
         }
     }
     
-    public init(data: [Double], title: String, legend: String? = nil, style: ChartStyle = Styles.pieChartStyleOne, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, valueSpecifier: String? = "%.1f"){
+    public init(data: [PieChartData], title: String, legend: String? = nil, style: ChartStyle = Styles.pieChartStyleOne, form: CGSize? = ChartForm.extraLarge, dropShadow: Bool? = true, valueSpecifier: String? = "%.1f", cornerImage: Image){
         self.data = data
         self.title = title
         self.legend = legend
@@ -37,6 +44,7 @@ public struct PieChartView : View {
         }
         self.dropShadow = dropShadow!
         self.valueSpecifier = valueSpecifier!
+        self.cornerImage = cornerImage
     }
     
     public var body: some View {
@@ -52,16 +60,26 @@ public struct PieChartView : View {
                             .font(.headline)
                             .foregroundColor(self.style.textColor)
                     }else{
-                        Text("\(self.currentValue, specifier: self.valueSpecifier)")
-                            .font(.headline)
-                            .foregroundColor(self.style.textColor)
+                        HStack{
+                            Spacer()
+                            // Show current values title
+                            Text(currentValueName)
+                                .font(.headline)
+                                .foregroundColor(self.style.textColor)
+                            Spacer()
+                            // Show current value
+                            Text("\(self.currentValue, specifier: self.valueSpecifier)")
+                                .font(.headline)
+                                .foregroundColor(self.style.textColor)
+                            Spacer()
+                        }
                     }
                     Spacer()
-                    Image(systemName: "chart.pie.fill")
+                    cornerImage
                         .imageScale(.large)
                         .foregroundColor(self.style.legendTextColor)
                 }.padding()
-                PieChartRow(data: data, backgroundColor: self.style.backgroundColor, accentColor: self.style.accentColor, showValue: $showValue, currentValue: $currentValue)
+                PieChartRow(data: data, backgroundColor: self.style.backgroundColor, showValue: $showValue, currentValue: $currentValue, currentValueName: $currentValueName)
                     .foregroundColor(self.style.accentColor).padding(self.legend != nil ? 0 : 12).offset(y:self.legend != nil ? 0 : -10)
                 if(self.legend != nil) {
                     Text(self.legend!)
@@ -77,8 +95,9 @@ public struct PieChartView : View {
 
 #if DEBUG
 struct PieChartView_Previews : PreviewProvider {
+    var data: PieChartData = PieChartData(name: "Deneme", value: 123, color: Color.blue)
     static var previews: some View {
-        PieChartView(data:[56,78,53,65,54], title: "Title", legend: "Legend")
+        PieChartView(data:[PieChartData(name: "Category1", value: 200, color: Color.blue),PieChartData(name: "Category2", value: 123, color: Color.orange)], title: "Title", legend: "Legend",style: ChartStyle(backgroundColor: Color.clear, accentColor: Color.orange, secondGradientColor: Color.gray, textColor: Color.white, legendTextColor: Color.white, dropShadowColor: Color.clear), form: ChartForm.extraLarge  ,cornerImage: Image(systemName: "book"))
     }
 }
 #endif

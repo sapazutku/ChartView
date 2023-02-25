@@ -8,32 +8,40 @@
 
 import SwiftUI
 
+
+public struct PieChartData {
+    var name : String
+    var value: Double
+    var color: Color
+}
+
 public struct PieChartRow : View {
-    var data: [Double]
+    var data: [PieChartData]
     var backgroundColor: Color
-    var accentColor: Color
+    
     var slices: [PieSlice] {
         var tempSlices:[PieSlice] = []
         var lastEndDeg:Double = 0
-        let maxValue = data.reduce(0, +)
+        let maxValue = data.map({$0.value}).reduce(0, +)
         for slice in data {
-            let normalized:Double = Double(slice)/Double(maxValue)
+            let normalized:Double = slice.value / maxValue
             let startDeg = lastEndDeg
             let endDeg = lastEndDeg + (normalized * 360)
             lastEndDeg = endDeg
-            tempSlices.append(PieSlice(startDeg: startDeg, endDeg: endDeg, value: slice, normalizedValue: normalized))
+            tempSlices.append(PieSlice(startDeg: startDeg, endDeg: endDeg, value: slice.value, name: slice.name, normalizedValue: normalized, color: slice.color))
         }
         return tempSlices
     }
     
     @Binding var showValue: Bool
     @Binding var currentValue: Double
-    
-    @State private var currentTouchedIndex = -1 {
+    @Binding var currentValueName: String
+    @State public var currentTouchedIndex = -1 {
         didSet {
             if oldValue != currentTouchedIndex {
                 showValue = currentTouchedIndex != -1
                 currentValue = showValue ? slices[currentTouchedIndex].value : 0
+                currentValueName = showValue ? slices[currentTouchedIndex].name : ""
             }
         }
     }
@@ -42,7 +50,7 @@ public struct PieChartRow : View {
         GeometryReader { geometry in
             ZStack{
                 ForEach(0..<self.slices.count){ i in
-                    PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,accentColor: self.accentColor)
+                    PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,accentColor: self.slices[i].color)
                         .scaleEffect(self.currentTouchedIndex == i ? 1.1 : 1)
                         .animation(Animation.spring())
                 }
@@ -67,11 +75,13 @@ public struct PieChartRow : View {
 
 #if DEBUG
 struct PieChartRow_Previews : PreviewProvider {
+    
+    var data: PieChartData = PieChartData(name: "Deneme", value: 123, color: Color.blue)
     static var previews: some View {
         Group {
-            PieChartRow(data:[8,23,54,32,12,37,7,23,43], backgroundColor: Color(red: 252.0/255.0, green: 236.0/255.0, blue: 234.0/255.0), accentColor: Color(red: 225.0/255.0, green: 97.0/255.0, blue: 76.0/255.0), showValue: Binding.constant(false), currentValue: Binding.constant(0))
-                .frame(width: 100, height: 100)
-            PieChartRow(data:[0], backgroundColor: Color(red: 252.0/255.0, green: 236.0/255.0, blue: 234.0/255.0), accentColor: Color(red: 225.0/255.0, green: 97.0/255.0, blue: 76.0/255.0), showValue: Binding.constant(false), currentValue: Binding.constant(0))
+            PieChartRow(data:[PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue)], backgroundColor: Color.black,  showValue: Binding.constant(false), currentValue: Binding.constant(0), currentValueName: Binding.constant(""))
+                .frame(width: 150, height: 150)
+                        PieChartRow(data:[PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue)], backgroundColor: Color.blue, showValue: Binding.constant(false), currentValue: Binding.constant(0), currentValueName: Binding.constant(""))
                 .frame(width: 100, height: 100)
         }
     }
