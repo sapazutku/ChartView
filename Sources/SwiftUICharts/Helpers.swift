@@ -213,6 +213,12 @@ public class ChartData: ObservableObject, Identifiable {
     }
 }
 
+public struct PieChartData {
+    var name : String
+    var value: Double
+    var color: Color
+}
+
 public class MultiLineChartData: ChartData {
     var gradient: GradientColor
     
