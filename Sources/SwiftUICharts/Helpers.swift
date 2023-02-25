@@ -213,10 +213,19 @@ public class ChartData: ObservableObject, Identifiable {
     }
 }
 
-public struct PieChartData {
-    var name : String
-    var value: Double
-    var color: Color
+// pie chart data
+public class PieChartData: ObservableObject, Identifiable {
+    @Published var name : String
+    @Published var value: Double
+    @Published var color: Color
+    var valuesGiven: Bool = false
+    var ID = UUID()
+
+    public init<N: BinaryFloatingPoint>(name: String, value: N, color: Color) {
+        self.name = name
+        self.value = Double(value)
+        self.color = color
+    }
 }
 
 public class MultiLineChartData: ChartData {
