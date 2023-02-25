@@ -15,9 +15,9 @@ struct LabelView: View {
         VStack{
             ArrowUp().fill(Color.gray).frame(width: 20, height: 12, alignment: .center).offset(x: getArrowOffset(offset:self.arrowOffset), y: 12)
             ZStack{
-                RoundedRectangle(cornerRadius: 8).frame(width: 100, height: 32, alignment: .center).foregroundColor(Color.gray)
+                RoundedRectangle(cornerRadius: 8).frame(width: 100, height: 32, alignment: .center).foregroundColor(Color(hexString: "#2C2C2E"))
                 Text(self.title).font(.caption).bold().foregroundColor(Color.white)
-                ArrowUp().fill(Color.gray).frame(width: 20, height: 12, alignment: .center).zIndex(999).offset(x: getArrowOffset(offset:self.arrowOffset), y: -20)
+                ArrowUp().fill(Color(hexString: "#2C2C2E")).frame(width: 20, height: 12, alignment: .center).zIndex(999).offset(x: getArrowOffset(offset:self.arrowOffset), y: -20)
 
             }
         }

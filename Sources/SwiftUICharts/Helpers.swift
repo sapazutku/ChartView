@@ -123,7 +123,7 @@ public struct Styles {
 
     public static let pieChartDarkMode = ChartStyle(
         backgroundColor: Color.black,
-        accentColor: Colors.OrangeEnd,
+        accentColor: Color(hexString: "#dc4726"),
         secondGradientColor: Colors.OrangeStart,
         textColor: Color.white,
         legendTextColor: Color.white,

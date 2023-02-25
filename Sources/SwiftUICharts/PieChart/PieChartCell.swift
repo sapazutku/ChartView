@@ -22,7 +22,7 @@ public struct PieChartCell : View {
     @State private var show:Bool = false
     var rect: CGRect
     var radius: CGFloat {
-        return min(rect.width, rect.height)/2
+        return min(rect.width, rect.height)/1.5
     }
     var startDeg: Double
     var endDeg: Double
