@@ -45,25 +45,31 @@ public struct PieChartRow : View {
         GeometryReader { geometry in
             ZStack{
                 ForEach(0..<self.slices.count){ i in
-                    PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,accentColor: self.slices[i].color)
+                    PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,name: self.currentValueName, accentColor: self.slices[i].color)
                         .scaleEffect(self.currentTouchedIndex == i ? 1.1 : 1)
-                        .animation(Animation.spring())
+                        .animation(Animation.interactiveSpring())
                 }
             }
-            .gesture(DragGesture()
-                        .onChanged({ value in
-                            let rect = geometry.frame(in: .local)
-                            let isTouchInPie = isPointInCircle(point: value.location, circleRect: rect)
-                            if isTouchInPie {
-                                let touchDegree = degree(for: value.location, inCircleRect: rect)
-                                self.currentTouchedIndex = self.slices.firstIndex(where: { $0.startDeg < touchDegree && $0.endDeg > touchDegree }) ?? -1
-                            } else {
-                                self.currentTouchedIndex = -1
-                            }
-                        })
-                        .onEnded({ value in
-                            self.currentTouchedIndex = -1
-                        }))
+            .gesture(DragGesture(minimumDistance: 0)
+                .onChanged({ (value) in
+                    let touchLocation = value.location
+                    let center = CGPoint(x: geometry.frame(in: .local).midX, y: geometry.frame(in: .local).midY)
+                    let distance = sqrt(pow(touchLocation.x - center.x, 2) + pow(touchLocation.y - center.y, 2))
+                    if distance < min(geometry.frame(in: .local).width, geometry.frame(in: .local).height) / 2 {
+                        let angle = atan2(touchLocation.y - center.y, touchLocation.x - center.x)
+                        let deg = angle * 180 / .pi
+                        let normalizedDeg = deg < 0 ? deg + 360 : deg
+                        self.currentTouchedIndex = self.slices.firstIndex(where: { (slice) -> Bool in
+                            return slice.startDeg <= normalizedDeg && slice.endDeg >= normalizedDeg
+                        }) ?? -1
+                    } else {
+                        self.currentTouchedIndex = -1
+                    }
+                })
+                .onEnded({ (value) in
+                    self.currentTouchedIndex = -1
+                })
+            )
         }
     }
 }

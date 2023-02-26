@@ -35,6 +35,8 @@ public struct PieChartCell : View {
     }
     var index: Int
     var backgroundColor:Color
+    var name: String
+    var labelOffset: Double = 0.0
     var accentColor:Color
     public var body: some View {
         path
@@ -42,10 +44,19 @@ public struct PieChartCell : View {
             .foregroundColor(self.accentColor)
             .overlay(path.stroke(self.backgroundColor, lineWidth: 3))
             .scaleEffect(self.show ? 1 : 0)
-            .animation(Animation.spring().delay(Double(self.index) * 0.04))
+            .animation(Animation.interactiveSpring().delay(Double(self.index) * 0.03))
             .onAppear(){
                 self.show = true
         }
+        Text(name)
+          .font(.system(size: 12))
+          .foregroundColor(Color.white)
+          .lineLimit(1)
+          .padding(.horizontal, 4)
+          .background(Color.black)
+          .cornerRadius(10)
+          .rotationEffect(Angle(degrees: (startDeg + endDeg) / 2 + labelOffset))
+          .offset(x: radius / 2 * cos((startDeg + endDeg) / 2 * .pi / 180.0), y: radius / 2 * sin((startDeg + endDeg) / 2 * .pi / 180.0))
     }
 }
 
@@ -59,7 +70,7 @@ extension CGRect {
 struct PieChartCell_Previews : PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
-            PieChartCell(rect: geometry.frame(in: .local),startDeg: 0.0,endDeg: 90.0, index: 0, backgroundColor: Color.clear, accentColor: Color(red: 225.0/255.0, green: 97.0/255.0, blue: 76.0/255.0))
+            PieChartCell(rect: geometry.frame(in: .local),startDeg: 0.0,endDeg: 90.0, index: 0, backgroundColor: Color.clear, name: "Deneme", accentColor: Color(red: 225.0/255.0, green: 97.0/255.0, blue: 76.0/255.0))
             }.frame(width:100, height:100)
         
     }

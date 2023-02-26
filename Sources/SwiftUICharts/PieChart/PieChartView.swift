@@ -27,7 +27,7 @@ public struct PieChartView : View {
     }
     @State private var currentValue: Double = 0 {
         didSet{
-            if(oldValue != self.currentValue && self.showValue) {
+            if(oldValue != self.currentValue ) {
                 HapticFeedback.playSelection()
             }
         }
