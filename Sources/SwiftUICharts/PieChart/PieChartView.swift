@@ -75,17 +75,17 @@ public struct PieChartView : View {
                         }
                     }
                     Spacer()
+
                     cornerImage
                         .imageScale(.large)
                         .foregroundColor(self.style.legendTextColor)
                 }.padding()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
                 PieChartRow(data: data, backgroundColor: self.style.backgroundColor, showValue: $showValue, currentValue: $currentValue, currentValueName: $currentValueName)
                     .foregroundColor(self.style.accentColor).padding(self.legend != nil ? 0 : 12).offset(y:self.legend != nil ? 0 : -10)
-                
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                
             }
         }.frame(width: self.formSize.width, height: self.formSize.height)
     }
