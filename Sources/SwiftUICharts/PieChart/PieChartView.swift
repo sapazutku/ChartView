@@ -96,7 +96,7 @@ public struct PieChartView : View {
 #if DEBUG
 struct PieChartView_Previews : PreviewProvider {
     static var previews: some View {
-        PieChartView(data: [PieChartData(name: "Dene", value: 20, color: Color(hexString: "#dc4726")),PieChartData(name: "Dene", value: 10, color: Color(hexString: "#dc4726")),PieChartData(name: "Dene", value: 30, color: Color(hexString: "#dc4726"))], title: "Title", legend: "Legend", style: Styles.pieChartDarkMode, form: ChartForm.extraLarge, dropShadow: false, valueSpecifier: "%.1f", cornerImage: Image(systemName: "chart.pie.fill"))
+        PieChartView(data: [PieChartData(name: "AAA", value: 20, color: Color(hexString: "#dc4726")),PieChartData(name: "BBBB", value: 10, color: Color(hexString: "#dc4726")),PieChartData(name: "CCC", value: 30, color: Color(hexString: "#dc4726"))], title: "Title", legend: "Legend", style: Styles.pieChartDarkMode, form: ChartForm.extraLarge, dropShadow: false, valueSpecifier: "%.1f", cornerImage: Image(systemName: "chart.pie.fill"))
     }
 }
 #endif
