@@ -41,16 +41,37 @@ public struct PieChartRow : View {
         }
     }
     
+    
     public var body: some View {
         GeometryReader { geometry in
-            ZStack{
-                ForEach(0..<self.slices.count){ i in
-                    PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,name: self.slices[i].name, accentColor: self.slices[i].color)
-                        .scaleEffect(self.currentTouchedIndex == i ? 1.1 : 1)
-                        .animation(Animation.interactiveSpring())
+           
+            if #available(iOS 16.0, *) {
+                ZStack{
+                    ForEach(0..<self.slices.count){ i in
+                        PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,name: self.slices[i].name, accentColor: self.slices[i].color)
+                            .scaleEffect(self.currentTouchedIndex == i ? 1.1 : 1)
+                            .animation(Animation.interactiveSpring())
+                    }
+                }
+                .onTapGesture { location in
+                    let rect = geometry.frame(in: .local)
+                            let isTouchInPie = isPointInCircle(point: location, circleRect: rect)
+                            if isTouchInPie {
+                                let touchDegree = degree(for: location, inCircleRect: rect)
+                                self.currentTouchedIndex = self.slices.firstIndex(where: { $0.startDeg < touchDegree && $0.endDeg > touchDegree }) ?? -1
+                            } else {
+                                self.currentTouchedIndex = -1
+                            }
+                }
+            } else {
+                ZStack{
+                    ForEach(0..<self.slices.count){ i in
+                        PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,name: self.slices[i].name, accentColor: self.slices[i].color)
+                            .scaleEffect(self.currentTouchedIndex == i ? 1.1 : 1)
+                            .animation(Animation.interactiveSpring())
+                    }
                 }
             }
-            
         }
     }
 }

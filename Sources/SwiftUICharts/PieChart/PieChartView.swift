@@ -81,12 +81,10 @@ public struct PieChartView : View {
                 }.padding()
                 PieChartRow(data: data, backgroundColor: self.style.backgroundColor, showValue: $showValue, currentValue: $currentValue, currentValueName: $currentValueName)
                     .foregroundColor(self.style.accentColor).padding(self.legend != nil ? 0 : 12).offset(y:self.legend != nil ? 0 : -10)
-                if(self.legend != nil) {
-                    Text(self.legend!)
-                        .font(.headline)
-                        .foregroundColor(self.style.legendTextColor)
-                        .padding()
-                }
+                
+                    Spacer()
+                    Spacer()
+                    Spacer()
                 
             }
         }.frame(width: self.formSize.width, height: self.formSize.height)
