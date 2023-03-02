@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 public struct Colors {
-    public static let color1:Color = Color(hexString: "#E2FAE7")
+    public static let color1:Color = Color(hexString: "#DAAEC1")
     public static let color1Accent:Color = Color(hexString: "#72BF82")
     public static let color2:Color = Color(hexString: "#EEF1FF")
     public static let color2Accent:Color = Color(hexString: "#4266E8")
@@ -28,6 +28,14 @@ public struct Colors {
     public static let GradientLowerBlue:Color = Color(hexString: "#F1F9FF")
     public static let DarkPurple:Color = Color(hexString: "#1B205E")
     public static let BorderBlue:Color = Color(hexString: "#4EBCFF")
+    
+    public static let customPink: Color = Color(hexString: "#DAAEC1")
+    public static let customBlue: Color = Color(hexString: "#D5D9E7")
+    public static let customRed: Color = Color(hexString: "#B25D72")
+    public static let customOrange: Color = Color(hexString: "#dc4726")
+    public static let customGreen: Color = Color(hexString: "#044400")
+    
+    
 }
 
 public struct GradientColor {
@@ -149,7 +157,7 @@ public struct ChartForm {
     public static let small = CGSize(width:180, height:120)
     public static let medium = CGSize(width:180, height:240)
     public static let large = CGSize(width:360, height:120)
-    public static let extraLarge = CGSize(width:360, height:240)
+    public static let extraLarge = CGSize(width:360, height:280)
     public static let detail = CGSize(width:180, height:120)
     #endif
 }

@@ -49,11 +49,12 @@ public struct PieChartCell : View {
                 self.show = true
         }
         Text(name)
-          .font(.system(size: 12))
+          .font(.system(size: 14))
           .foregroundColor(Color.white)
+          .bold()
           .lineLimit(1)
           .padding(.horizontal, 4)
-          .background(Color.black)
+          .background(Color.gray)
           .cornerRadius(10)
           .rotationEffect(Angle(degrees: (startDeg + endDeg) / 2 + labelOffset))
           .offset(x: radius / 2 * cos((startDeg + endDeg) / 2 * .pi / 180.0), y: radius / 2 * sin((startDeg + endDeg) / 2 * .pi / 180.0))

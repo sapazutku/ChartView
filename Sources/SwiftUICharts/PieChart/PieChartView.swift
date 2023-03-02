@@ -48,44 +48,44 @@ public struct PieChartView : View {
     }
     
     public var body: some View {
-        ZStack{
-            Rectangle()
-                .fill(self.style.backgroundColor)
-                .cornerRadius(20)
-                .shadow(color: self.style.dropShadowColor, radius: self.dropShadow ? 12 : 0)
-            VStack(alignment: .leading){
-                HStack{
-                    if(!showValue){
-                        Text(self.title)
-                            .font(.headline)
-                            .foregroundColor(self.style.textColor)
-                    }else{
-                        HStack{
-                            Spacer()
-                            // Show current values title
-                            Text(currentValueName)
-                                .font(.headline)
-                                .foregroundColor(self.style.textColor)
-                            Spacer()
-                            // Show current value
-                            Text("\(self.currentValue, specifier: self.valueSpecifier)")
-                                .font(.headline)
-                                .foregroundColor(self.style.textColor)
-                            Spacer()
-                        }
-                    }
-                    Spacer()
-
-                    cornerImage
-                        .imageScale(.large)
-                        .foregroundColor(self.style.legendTextColor)
-                }.padding()
-                Spacer()
-                Spacer()
-                Spacer()
-                Spacer()
+        VStack{
+            VStack(alignment: .center){
                 PieChartRow(data: data, backgroundColor: self.style.backgroundColor, showValue: $showValue, currentValue: $currentValue, currentValueName: $currentValueName)
                     .foregroundColor(self.style.accentColor).padding(self.legend != nil ? 0 : 12).offset(y:self.legend != nil ? 0 : -10)
+            }
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+           
+            HStack{
+                if(!showValue){
+                    Text(self.title)
+                        .font(.headline)
+                        .foregroundColor(self.style.textColor)
+                }else{
+                    HStack{
+                        // Show current values title
+                        Spacer()
+                        Text(currentValueName)
+                            .font(.headline)
+                            .foregroundColor(self.style.textColor)
+                        // Show current value
+                        Text("\(self.currentValue, specifier: self.valueSpecifier)")
+                            .font(.headline)
+                            .foregroundColor(self.style.textColor)
+                        Spacer()
+                    }
+                }
+                Spacer()
+
+                cornerImage
+                    .imageScale(.large)
+                    .foregroundColor(self.style.legendTextColor)
             }
         }.frame(width: self.formSize.width, height: self.formSize.height)
     }
@@ -94,7 +94,8 @@ public struct PieChartView : View {
 #if DEBUG
 struct PieChartView_Previews : PreviewProvider {
     static var previews: some View {
-        PieChartView(data: [PieChartData(name: "AAA", value: 20, color: Color(hexString: "#dc4726")),PieChartData(name: "BBBB", value: 10, color: Color(hexString: "#dc4726")),PieChartData(name: "CCC", value: 30, color: Color(hexString: "#dc4726"))], title: "Title", legend: "Legend", style: Styles.pieChartDarkMode, form: ChartForm.extraLarge, dropShadow: false, valueSpecifier: "%.1f", cornerImage: Image(systemName: "chart.pie.fill"))
+        PieChartView(data: [PieChartData(name: "AAA", value: 20, color: Colors.customRed),PieChartData(name: "BBBB", value: 10, color: Colors.customBlue),PieChartData(name: "CCC", value: 30, color: Colors.customPink), PieChartData(name: "Deneme", value: 15, color: Colors.customGreen), PieChartData(name: "Deneme2", value: 25, color: Colors.customOrange)
+            ], title: "Title", legend: "Legend", style: Styles.pieChartDarkMode, form: ChartForm.extraLarge, dropShadow: false, valueSpecifier: "%.1f", cornerImage: Image(systemName: "chart.pie.fill"))
     }
 }
 #endif
