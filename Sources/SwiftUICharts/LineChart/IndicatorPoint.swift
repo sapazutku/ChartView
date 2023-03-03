@@ -12,12 +12,12 @@ struct IndicatorPoint: View {
     var body: some View {
         ZStack{
             Circle()
-                .fill(Colors.IndicatorKnob)
+                .fill(Colors.customOrange)
             Circle()
                 .stroke(Color.white, style: StrokeStyle(lineWidth: 4))
         }
         .frame(width: 14, height: 14)
-        .shadow(color: Colors.LegendColor, radius: 6, x: 0, y: 6)
+        .shadow(color: Colors.customOrange, radius: 6, x: 0, y: 6)
     }
 }
 

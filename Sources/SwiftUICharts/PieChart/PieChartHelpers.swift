@@ -39,3 +39,10 @@ func degree(for point: CGPoint, inCircleRect circleRect: CGRect) -> Double {
     
     return 0
 }
+
+func calculatePercentage(for degree: Double, inCircleRect circleRect: CGRect) -> Double {
+    let r = min(circleRect.width, circleRect.height) / 2
+    let circumference = 2 * .pi * r
+    let percentage = degree / 360 * circumference
+    return percentage
+}

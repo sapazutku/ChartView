@@ -54,7 +54,7 @@ public struct PieChartCell : View {
           .bold()
           .lineLimit(1)
           .padding(.horizontal, 4)
-          .background(Color.gray)
+          .background(Color.black).opacity(0.7)
           .cornerRadius(10)
           .rotationEffect(Angle(degrees: (startDeg + endDeg) / 2 + labelOffset))
           .offset(x: radius / 2 * cos((startDeg + endDeg) / 2 * .pi / 180.0), y: radius / 2 * sin((startDeg + endDeg) / 2 * .pi / 180.0))

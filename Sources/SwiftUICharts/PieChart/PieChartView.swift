@@ -20,6 +20,7 @@ public struct PieChartView : View {
     public var cornerImage: Image
     
     @State private var showValue = false
+    @State private var percentage: String?
     @State private var currentValueName: String = "" {
         didSet{
             print(currentValueName)
@@ -27,9 +28,7 @@ public struct PieChartView : View {
     }
     @State private var currentValue: Double = 0 {
         didSet{
-            if(oldValue != self.currentValue ) {
                 HapticFeedback.playSelection()
-            }
         }
     }
     
@@ -53,14 +52,8 @@ public struct PieChartView : View {
                 PieChartRow(data: data, backgroundColor: self.style.backgroundColor, showValue: $showValue, currentValue: $currentValue, currentValueName: $currentValueName)
                     .foregroundColor(self.style.accentColor).padding(self.legend != nil ? 0 : 12).offset(y:self.legend != nil ? 0 : -10)
             }
-            Spacer()
-            Spacer()
-            Spacer()
-            Spacer()
-            Spacer()
-            Spacer()
-            Spacer()
-            Spacer()
+            Spacer(minLength: 60)
+            
            
             HStack{
                 if(!showValue){
@@ -70,15 +63,17 @@ public struct PieChartView : View {
                 }else{
                     HStack{
                         // Show current values title
-                        Spacer()
-                        Text(currentValueName)
-                            .font(.headline)
-                            .foregroundColor(self.style.textColor)
-                        // Show current value
-                        Text("\(self.currentValue, specifier: self.valueSpecifier)")
-                            .font(.headline)
-                            .foregroundColor(self.style.textColor)
-                        Spacer()
+                        
+                            Spacer()
+                            Text(currentValueName)
+                                .font(.headline)
+                                .foregroundColor(Color.white)
+                            // Show current value
+                            Text("\(self.currentValue, specifier: self.valueSpecifier)")
+                                .font(.headline)
+                                .foregroundColor(self.style.textColor)
+                            Spacer()
+                        
                     }
                 }
                 Spacer()
@@ -87,7 +82,7 @@ public struct PieChartView : View {
                     .imageScale(.large)
                     .foregroundColor(self.style.legendTextColor)
             }
-        }.frame(width: self.formSize.width, height: self.formSize.height)
+        }.frame(width: self.formSize.width, height: self.formSize.height + 50)
     }
 }
 

@@ -26,14 +26,14 @@ public struct LineView: View {
     @State private var currentDataNumber: Double = 0
     @State private var hideHorizontalLines: Bool = false
     
-    public init(data: [Double],
+    public init(data: ChartData,
                 title: String? = nil,
                 legend: String? = nil,
                 style: ChartStyle = Styles.lineChartStyleOne,
                 valueSpecifier: String? = "%.1f",
                 legendSpecifier: String? = "%.2f") {
         
-        self.data = ChartData(points: data)
+        self.data = data
         self.title = title
         self.legend = legend
         self.style = style
@@ -73,7 +73,7 @@ public struct LineView: View {
                              showIndicator: self.$hideHorizontalLines,
                              minDataValue: .constant(nil),
                              maxDataValue: .constant(nil),
-                             showBackground: false,
+                             showBackground: true,
                              gradient: self.style.gradientColor
                         )
                         .offset(x: 30, y: 0)
@@ -125,10 +125,8 @@ public struct LineView: View {
 struct LineView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LineView(data: [8,23,54,32,12,37,7,23,43], title: "Full chart", style: Styles.lineChartStyleOne)
-            
-            LineView(data: [282.502, 284.495, 283.51, 285.019, 285.197, 286.118, 288.737, 288.455, 289.391, 287.691, 285.878, 286.46, 286.252, 284.652, 284.129, 284.188], title: "Full chart", style: Styles.lineChartStyleOne)
-            
+            LineView(data: ChartData(values: [("1", 10),("2", 30), ("3", 40)]), title: "Full chart", style: Styles.lineChartStyleOne)
+           
         }
     }
 }

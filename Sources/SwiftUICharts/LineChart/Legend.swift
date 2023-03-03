@@ -56,6 +56,15 @@ struct Legend: View {
                 }
                
             }
+            HStack {
+            ForEach(getXLegend() ?? [], id: \.self) { label in
+                Text(label)
+                    .frame(width: stepWidth/1.6)
+                    .font(.subheadline)
+                    .foregroundColor(Colors.LegendText)
+            }
+        }
+        .offset(x: 0, y: frame.height + padding * 2)
             
         }
     }
@@ -89,12 +98,18 @@ struct Legend: View {
         let step = Double(max - min)/4
         return [min+step * 0, min+step * 1, min+step * 2, min+step * 3, min+step * 4]
     }
+
+    func getXLegend() -> [String]? {
+        return self.data.points.map({
+            $0.0
+        })
+    }
 }
 
 struct Legend_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader{ geometry in
             Legend(data: ChartData(points: [0.2,0.4,1.4,4.5]), frame: .constant(geometry.frame(in: .local)), hideHorizontalLines: .constant(false))
-        }.frame(width: 320, height: 200)
+        }
     }
 }
