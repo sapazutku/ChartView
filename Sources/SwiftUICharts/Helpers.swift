@@ -34,6 +34,14 @@ public struct Colors {
     public static let customRed: Color = Color(hexString: "#B25D72")
     public static let customOrange: Color = Color(hexString: "#dc4726")
     public static let customGreen: Color = Color(hexString: "#044400")
+
+
+
+    // return random color
+    public static func random() -> Color {
+        let colors: [Color] = [Colors.IndicatorKnob, Colors.customOrange, Colors.color1Accent, Colors.OrangeStart, Colors.GradientPurple]
+        return colors.randomElement()!
+    }
     
     
 }
