@@ -47,11 +47,12 @@ public struct PieChartRow : View {
            
             if #available(iOS 16.0, *) {
                 ZStack{
-                    ForEach(0..<self.slices.count){ i in
-                        PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,name: self.slices[i].name, accentColor: self.slices[i].color)
-                            .scaleEffect(self.currentTouchedIndex == i ? 1.1 : 1)
+                    ForEach(Array(self.slices.enumerated()), id: \.1.id) { index, slice in
+                        PieChartCell(rect: geometry.frame(in: .local), startDeg: slice.startDeg, endDeg: slice.endDeg, index: index, backgroundColor: self.backgroundColor,name: slice.name, accentColor: slice.color)
+                            .scaleEffect(self.currentTouchedIndex == index ? 1.1 : 1)
                             .animation(Animation.interactiveSpring())
                     }
+
                 }
                 .onTapGesture { location in
                     let rect = geometry.frame(in: .local)
@@ -65,11 +66,12 @@ public struct PieChartRow : View {
                 }
             } else {
                 ZStack{
-                    ForEach(0..<self.slices.count){ i in
-                        PieChartCell(rect: geometry.frame(in: .local), startDeg: self.slices[i].startDeg, endDeg: self.slices[i].endDeg, index: i, backgroundColor: self.backgroundColor,name: self.slices[i].name, accentColor: self.slices[i].color)
-                            .scaleEffect(self.currentTouchedIndex == i ? 1.1 : 1)
+                    ForEach(Array(self.slices.enumerated()), id: \.1.id) { index, slice in
+                        PieChartCell(rect: geometry.frame(in: .local), startDeg: slice.startDeg, endDeg: slice.endDeg, index: index, backgroundColor: self.backgroundColor,name: slice.name, accentColor: slice.color)
+                            .scaleEffect(self.currentTouchedIndex == index ? 1.1 : 1)
                             .animation(Animation.interactiveSpring())
                     }
+
                 }
             }
         }

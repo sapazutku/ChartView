@@ -91,8 +91,8 @@ public struct Styles {
     
     public static let barChartStyleOrangeDark = ChartStyle(
         backgroundColor: Color.black,
-        accentColor: Colors.OrangeStart,
-        secondGradientColor: Colors.OrangeEnd,
+        accentColor: Colors.OrangeStart.opacity(0.50),
+        secondGradientColor: Colors.OrangeEnd.opacity(0.50),
         textColor: Color.white,
         legendTextColor: Color.gray,
         dropShadowColor: Color.gray)
