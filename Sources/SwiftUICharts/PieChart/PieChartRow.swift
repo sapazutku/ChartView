@@ -50,7 +50,6 @@ public struct PieChartRow : View {
                     ForEach(Array(self.slices.enumerated()), id: \.1.id) { index, slice in
                         PieChartCell(rect: geometry.frame(in: .local), startDeg: slice.startDeg, endDeg: slice.endDeg, index: index, backgroundColor: self.backgroundColor,name: slice.name, accentColor: slice.color)
                             .scaleEffect(self.currentTouchedIndex == index ? 1.1 : 1)
-                            .animation(Animation.interactiveSpring())
                     }
 
                 }
@@ -69,7 +68,7 @@ public struct PieChartRow : View {
                     ForEach(Array(self.slices.enumerated()), id: \.1.id) { index, slice in
                         PieChartCell(rect: geometry.frame(in: .local), startDeg: slice.startDeg, endDeg: slice.endDeg, index: index, backgroundColor: self.backgroundColor,name: slice.name, accentColor: slice.color)
                             .scaleEffect(self.currentTouchedIndex == index ? 1.1 : 1)
-                            .animation(Animation.interactiveSpring())
+        
                     }
 
                 }
