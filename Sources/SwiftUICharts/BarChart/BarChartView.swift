@@ -10,7 +10,14 @@ import SwiftUI
 
 public struct BarChartView : View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    private var data: ChartData
+    private var data: ChartData {
+        didSet {
+            // update the data
+            self.data.points = self.data.points.map{ (point) -> (String, Double) in
+                return (point.0, point.1)
+            }
+        }
+    }
     public var title: String
     public var legend: String?
     public var style: ChartStyle
@@ -146,12 +153,19 @@ public struct BarChartView : View {
         let index = max(0,min(self.data.points.count-1,Int(floor((self.touchLocation*self.formSize.width)/(self.formSize.width/CGFloat(self.data.points.count))))))
         return self.data.points[index]
     }
+
+    // update the data and bar height
 }
 
 #if DEBUG
 struct ChartView_Previews : PreviewProvider {
     static var previews: some View {
-        BarChartView(data: TestData.values ,
+        BarChartView(data: ChartData(values: [("2017 Q3",10),
+                                              ("2017 Q4",20),
+                                              ("2018 Q1",30),
+                                              ("2018 Q2",40),
+                                              ("2018 Q3",50),
+                                              ("2018 Q4",10), ("2019 Q1",20), ("2019 Q2",70), ("2019 Q3",80), ("2019 Q4",80)]) ,
                      title: "Model 3 sales",
                      legend: "Quarterly",
                      form: ChartForm.extraLarge, valueSpecifier: "%.0f")
