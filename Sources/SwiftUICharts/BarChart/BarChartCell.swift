@@ -27,7 +27,7 @@ public struct BarChartCell : View {
                 .fill(LinearGradient(gradient: gradient?.getGradient() ?? GradientColor(start: accentColor, end: accentColor).getGradient(), startPoint: .bottom, endPoint: .top))
             }
             .frame(width: CGFloat(self.cellWidth))
-            .scaleEffect(CGSize(width: 1, height: self.scaleValue), anchor: .bottom)
+            .scaleEffect(CGSize(width: 1, height: self.value), anchor: .bottom)
             .onAppear(){
                 self.scaleValue = self.value
             }
@@ -37,7 +37,7 @@ public struct BarChartCell : View {
 #if DEBUG
 struct ChartCell_Previews : PreviewProvider {
     static var previews: some View {
-        BarChartCell(value: Double(0.75), width: 320, numberOfDataPoints: 12, accentColor: Colors.OrangeStart.opacity(0.50), gradient: nil, touchLocation: .constant(-1))
+        BarChartCell(value: Double(0.5), width: 320, numberOfDataPoints: 5, accentColor: Colors.OrangeStart.opacity(0.50), gradient: nil, touchLocation: .constant(-1))
     }
 }
 #endif
