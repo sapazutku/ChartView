@@ -44,19 +44,12 @@ public struct LineView: View {
     
     public var body: some View {
         GeometryReader{ geometry in
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 0) {
                 Group{
-                    if (self.title != nil){
                         Text(self.title!)
                             .font(.headline)
                             .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
-                    }
-                    if (self.legend != nil){
-                        Text(self.legend!)
-                            .font(.callout)
-                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
-                    }
-                }.offset(x: 25, y: 50)
+                }.offset(x: 25, y: 0)
                 ZStack{
                     GeometryReader{ reader in
                         Rectangle()
@@ -85,7 +78,7 @@ public struct LineView: View {
                         }
                     }
                     .frame(width: geometry.frame(in: .local).size.width - 50, height: 180)
-                    .offset(x: 0, y: 40 )
+                    .offset(x: 0, y: 0 )
                     MagnifierRect(currentNumber: self.$currentDataNumber, valueSpecifier: self.valueSpecifier)
                         .opacity(self.opacity)
                         .offset(x: self.dragLocation.x - geometry.frame(in: .local).size.width/2, y: 36)
