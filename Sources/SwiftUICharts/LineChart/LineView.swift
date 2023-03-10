@@ -49,7 +49,7 @@ public struct LineView: View {
                         Text(self.title!)
                             .font(.headline)
                             .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
-                }.offset(x: 25, y: 0)
+                }.offset(x: 25, y: 20)
                 ZStack{
                     GeometryReader{ reader in
                         Rectangle()
@@ -78,7 +78,7 @@ public struct LineView: View {
                         }
                     }
                     .frame(width: geometry.frame(in: .local).size.width - 50, height: 180)
-                    .offset(x: 0, y: 0 )
+                    .offset(x: 0, y: 10 )
                     MagnifierRect(currentNumber: self.$currentDataNumber, valueSpecifier: self.valueSpecifier)
                         .opacity(self.opacity)
                         .offset(x: self.dragLocation.x - geometry.frame(in: .local).size.width/2, y: 36)
