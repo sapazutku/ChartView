@@ -77,8 +77,8 @@ public struct LineView: View {
                             self.showLegend = false
                         }
                     }
-                    .frame(width: geometry.frame(in: .local).size.width - 50, height: 180)
-                    .offset(x: 0, y: 10 )
+                    .frame(width: geometry.frame(in: .local).size.width - 50, height: 200)
+                    .offset(x: 0, y: 40 )
                     MagnifierRect(currentNumber: self.$currentDataNumber, valueSpecifier: self.valueSpecifier)
                         .opacity(self.opacity)
                         .offset(x: self.dragLocation.x - geometry.frame(in: .local).size.width/2 + 20, y: 36)
