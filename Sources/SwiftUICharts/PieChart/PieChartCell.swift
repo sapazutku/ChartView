@@ -38,6 +38,18 @@ public struct PieChartCell : View {
     var name: String
     var labelOffset: Double = 0.0
     var accentColor:Color
+    var totalItems: Int
+    private var textRotationAngle: Double {
+        if totalItems == 1 {
+            return 0.0
+        } else if totalItems == 2 {
+            let angle = (startDeg + endDeg) / 2
+            return 0
+        } else {
+            return (startDeg + endDeg) / 2 + labelOffset
+        }
+    }
+    
     public var body: some View {
         path
             .fill()
@@ -46,17 +58,18 @@ public struct PieChartCell : View {
             .scaleEffect(self.show ? 1 : 0)
             .onAppear(){
                 self.show = true
-        }
+            }
+        
         Text(name)
-          .font(.system(size: 14))
-          .foregroundColor(Color.white)
-          .bold()
-          .lineLimit(1)
-          .padding(.horizontal, 4)
-          .background(Color.black).opacity(0.7)
-          .cornerRadius(10)
-          .rotationEffect(Angle(degrees: (startDeg + endDeg) / 2 + labelOffset))
-          .offset(x: radius / 2 * cos((startDeg + endDeg) / 2 * .pi / 180.0), y: radius / 2 * sin((startDeg + endDeg) / 2 * .pi / 180.0))
+            .font(.system(size: 14))
+            .foregroundColor(Color.white)
+            .bold()
+            .lineLimit(1)
+            .padding(.horizontal, 4)
+            .background(Color.black).opacity(0.7)
+            .cornerRadius(10)
+            .rotationEffect(Angle(degrees: textRotationAngle))
+            .offset(x: radius / 2 * cos((startDeg + endDeg) / 2 * .pi / 180.0), y: radius / 2 * sin((startDeg + endDeg) / 2 * .pi / 180.0))
     }
 }
 
@@ -70,8 +83,8 @@ extension CGRect {
 struct PieChartCell_Previews : PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
-            PieChartCell(rect: geometry.frame(in: .local),startDeg: 0.0,endDeg: 90.0, index: 0, backgroundColor: Color.clear, name: "Deneme", accentColor: Color(red: 225.0/255.0, green: 97.0/255.0, blue: 76.0/255.0))
-            }.frame(width:100, height:100)
+            PieChartCell(rect: geometry.frame(in: .local),startDeg: 0.0,endDeg: 90.0, index: 0, backgroundColor: Color.clear, name: "Deneme", accentColor: Color(red: 225.0/255.0, green: 97.0/255.0, blue: 76.0/255.0), totalItems: 1)
+        }.frame(width:100, height:100)
         
     }
 }

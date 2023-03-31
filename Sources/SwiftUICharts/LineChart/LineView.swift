@@ -49,7 +49,7 @@ public struct LineView: View {
                         Text(self.title!)
                             .font(.headline)
                             .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
-                }.offset(x: 30, y: 20)
+                }.offset(x: 30, y: 10)
                 ZStack{
                     GeometryReader{ reader in
                         Rectangle()
@@ -83,7 +83,7 @@ public struct LineView: View {
                         .opacity(self.opacity)
                         .offset(x: self.dragLocation.x - geometry.frame(in: .local).size.width/2 + 20, y: 36)
                 }
-                .frame(width: geometry.frame(in: .local).size.width, height: 210)
+                .frame(width: geometry.frame(in: .local).size.width, height: 150)
                 .gesture(DragGesture()
                 .onChanged({ value in
                     self.dragLocation = value.location
@@ -118,7 +118,7 @@ public struct LineView: View {
 struct LineView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LineView(data: ChartData(values: [("2022", 10000),("2023", 15000) ]), title: "Full chart", style: Styles.lineChartStyleOne)
+            LineView(data: ChartData(values: [("2022", 10000),("2023", 15000),("2024", 16000) ]), title: "Full chart", style: Styles.lineChartStyleOne)
         }
     }
 }

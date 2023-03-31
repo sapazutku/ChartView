@@ -48,7 +48,7 @@ public struct PieChartRow : View {
             if #available(iOS 16.0, *) {
                 ZStack{
                     ForEach(Array(self.slices.enumerated()), id: \.1.id) { index, slice in
-                        PieChartCell(rect: geometry.frame(in: .local), startDeg: slice.startDeg, endDeg: slice.endDeg, index: index, backgroundColor: self.backgroundColor,name: slice.name, accentColor: slice.color)
+                        PieChartCell(rect: geometry.frame(in: .local), startDeg: slice.startDeg, endDeg: slice.endDeg, index: index, backgroundColor: self.backgroundColor,name: slice.name, accentColor: slice.color, totalItems: data.count)
                             .scaleEffect(self.currentTouchedIndex == index ? 1.1 : 1)
                     }
 
@@ -66,7 +66,7 @@ public struct PieChartRow : View {
             } else {
                 ZStack{
                     ForEach(Array(self.slices.enumerated()), id: \.1.id) { index, slice in
-                        PieChartCell(rect: geometry.frame(in: .local), startDeg: slice.startDeg, endDeg: slice.endDeg, index: index, backgroundColor: self.backgroundColor,name: slice.name, accentColor: slice.color)
+                        PieChartCell(rect: geometry.frame(in: .local), startDeg: slice.startDeg, endDeg: slice.endDeg, index: index, backgroundColor: self.backgroundColor,name: slice.name, accentColor: slice.color, totalItems: data.count)
                             .scaleEffect(self.currentTouchedIndex == index ? 1.1 : 1)
         
                     }
@@ -83,7 +83,7 @@ struct PieChartRow_Previews : PreviewProvider {
     var data: PieChartData = PieChartData(name: "Deneme", value: 123, color: Color.blue)
     static var previews: some View {
         Group {
-            PieChartRow(data:[PieChartData(name: "A", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue)], backgroundColor: Color.black,  showValue: Binding.constant(false), currentValue: Binding.constant(0), currentValueName: Binding.constant(""))
+            PieChartRow(data:[PieChartData(name: "A", value: 123, color: Color.blue), PieChartData(name: "A", value: 123, color: Color.blue)], backgroundColor: Color.black,  showValue: Binding.constant(false), currentValue: Binding.constant(0), currentValueName: Binding.constant(""))
                 .frame(width: 150, height: 150)
                         PieChartRow(data:[PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue),PieChartData(name: "Deneme", value: 123, color: Color.blue)], backgroundColor: Color.blue, showValue: Binding.constant(false), currentValue: Binding.constant(0), currentValueName: Binding.constant(""))
                 .frame(width: 100, height: 100)
